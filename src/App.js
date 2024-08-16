@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import "./App.css";
 import { useState } from "react";
 import { useTransition, animated } from "@react-spring/web";
@@ -76,15 +76,8 @@ const App = () => {
   };
 
   const handlePrizeDefined = () => {
+    console.log(isPopupVisible);
     setIsPopupVisible(true);
-  };
-
-  const handleSpacePress = (e) => {
-    if (e.key === " " && !isPopupVisible) {
-      e.preventDefault();
-      console.log("Space clicked");
-      handleStart();
-    }
   };
 
   //Effects
@@ -100,14 +93,25 @@ const App = () => {
     };
   }, []);
 
+  const checkKeyPress = useCallback(
+    (e) => {
+      if (e.key === " ") {
+        e.preventDefault();
+        if (!isPopupVisible) {
+          handleStart();
+        }
+      }
+    },
+    [isPopupVisible, transition]
+  );
+
   //handle Space bar click to start spin
   useEffect(() => {
-    console.log("event listener ");
-    document.addEventListener("keydown", handleSpacePress, false);
+    document.addEventListener("keydown", checkKeyPress, false);
     return () => {
-      document.removeEventListener("keydown", handleSpacePress, false);
+      document.removeEventListener("keydown", checkKeyPress, false);
     };
-  }, []);
+  }, [checkKeyPress]);
 
   return (
     <>
