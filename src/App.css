@@ -33,6 +33,11 @@
 }
 /*--------------------------------------*/
 
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 .base-Container {
   width: 62%;
   margin: auto;
