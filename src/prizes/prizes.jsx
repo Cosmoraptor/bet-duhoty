@@ -20,7 +20,7 @@ const prizes = [
   {
     uuid: "9352a077-e627-43a6-b876-d6d7f1ea230b",
     image: "https://i.ibb.co/vdXj8VC/10-100grn.png",
-    text: "100 грн",
+    text: "4 Хайка",
     description: "100 грн на карту (Нихуя для Вадима)",
     chance: [41, 50],
     spinnerImage: spinner.green,
