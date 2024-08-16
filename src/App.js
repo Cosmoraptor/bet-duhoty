@@ -60,18 +60,6 @@ const App = () => {
     setWinPrize(winPrize);
   };
 
-  //generate Prize List for first time
-  useEffect(() => {
-    let ignore = false;
-
-    if (!ignore) {
-      generatePrizeList();
-    }
-    return () => {
-      ignore = true;
-    };
-  }, []);
-
   const handleStart = () => {
     generateWInPrize();
     setStart(true);
@@ -90,6 +78,36 @@ const App = () => {
   const handlePrizeDefined = () => {
     setIsPopupVisible(true);
   };
+
+  const handleSpacePress = (e) => {
+    if (e.key === " " && !isPopupVisible) {
+      e.preventDefault();
+      console.log("Space clicked");
+      handleStart();
+    }
+  };
+
+  //Effects
+  //Generate PrieList onLoad
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) {
+      generatePrizeList();
+    }
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  //handle Space bar click to start spin
+  useEffect(() => {
+    console.log("event listener ");
+    document.addEventListener("keydown", handleSpacePress, false);
+    return () => {
+      document.removeEventListener("keydown", handleSpacePress, false);
+    };
+  }, []);
 
   return (
     <>
